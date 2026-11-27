@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <title>Renzu character</title>
+  <desc>A cyan chameleon facing right, with an attentive eye and a curled tail.</desc>
+  <style>
+  @keyframes renzu-breathe{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-5px) rotate(-1deg)}}
+  @keyframes renzu-blink{0%,40%,44%,100%{transform:scaleY(1)}42%{transform:scaleY(.08)}}
+  .renzu-character{transform-origin:256px 270px;animation:renzu-breathe 6s ease-in-out infinite}
+  .renzu-eye{transform-origin:337px 229px;animation:renzu-blink 7s ease-in-out infinite}
+  @media(prefers-reduced-motion:reduce){.renzu-character,.renzu-eye{animation:none}}
+</style><g class="renzu-character"><path fill="#7dd8e8" d="m182 160-8-35c-10-34-5-46 19-46 87-2 190 52 238 122 24 33 30 51 21 68-12 24-62 38-119 52l-80 21c0-42-31-71-66-75-39-6-70 14-77 47-7 33 15 60 41 60 28 1 44-20 39-41-4-19-24-27-39-16-12 9-12 25 2 31-5-13 2-22 12-18 11 5 11 19 0 25-16 12-34-2-33-20-3-24 14-40 36-40 31 0 54 25 54 54 0 39-27 60-62 60-37 0-72-23-82-57-10-35 0-72 22-105 20-36 48-64 82-87Z"/>
+  <g class="renzu-eye"><circle cx="337" cy="229" r="50" fill="#111422"/>
+  <circle cx="356" cy="213" r="16" fill="#fff"/>
+</g></g></svg>
