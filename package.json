@@ -1,0 +1,58 @@
+{
+  "name": "@renzu/ui",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Public Renzu React components for extension authors",
+  "license": "UNLICENSED",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "scripts": {
+    "build": "node build.mjs",
+    "prepack": "npm run build",
+    "storybook": "storybook dev --host 127.0.0.1 --no-open --disable-telemetry",
+    "storybook:build": "storybook build -o storybook-static --disable-telemetry",
+    "test": "node --test public.test.mjs"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "engines": {
+    "node": ">=22.12"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "dependencies": {
+    "lucide-react": "^0.468.0"
+  },
+  "devDependencies": {
+    "@storybook/react-vite": "^10.6.9",
+    "@storybook/addon-docs": "^10.6.9",
+    "@storybook/addon-a11y": "^10.6.9",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "~5.9.3",
+    "storybook": "^10.6.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sushidev-team/renzu-ui.git"
+  },
+  "homepage": "https://renzu.app/docs/components"
+}
