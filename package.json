@@ -55,5 +55,10 @@
     "type": "git",
     "url": "git+https://github.com/sushidev-team/renzu-ui.git"
   },
-  "homepage": "https://renzu.app/docs/components"
+  "homepage": "https://renzu.app/docs/components",
+  "overrides": {
+    "glob": {
+      "minimatch": "^11.0.5"
+    }
+  }
 }

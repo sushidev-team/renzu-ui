@@ -1,4 +1,4 @@
-<p><img src="https://raw.githubusercontent.com/sushidev-team/renzu-ui/main/.github/assets/renzu.png" width="64" height="64" alt="Renzu" /></p>
+<p><img src="https://renzu.app/brand/renzu-character.svg" width="64" height="64" alt="Renzu" /></p>
 
 # Renzu UI
 
