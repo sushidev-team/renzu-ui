@@ -1,6 +1,6 @@
 # Publishing
 
-Releases are managed by Release Please. Merge the package changes first, then merge its generated release PR. CI builds and tests the versioned package and publishes it using npm trusted publishing with provenance.
+Releases are managed by Release Please. For a bot-created release PR, run the **CI** workflow manually on its release branch before merging; GitHub does not automatically start pull request workflows for PRs created with GITHUB_TOKEN. Merge the package changes first, then merge its generated release PR. CI builds and tests the versioned package and publishes it using npm trusted publishing with provenance.
 
 The first publication uses the repository secret `NPM_TOKEN`, provisioned from the RENZU vault. It must have publish access to the `@renzu` scope. Configure the package's npm trusted publisher afterwards:
 
