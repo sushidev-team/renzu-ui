@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "type": "module",
   "description": "Public Renzu React components for extension authors",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -24,8 +25,9 @@
     "build": "node build.mjs",
     "prepack": "npm run build",
     "storybook": "storybook dev --host 127.0.0.1 --no-open --disable-telemetry",
-    "storybook:build": "storybook build -o storybook-static --disable-telemetry",
-    "test": "node --test public.test.mjs"
+    "storybook:build": "npm run storybook:check && storybook build -o storybook-static --disable-telemetry",
+    "test": "node --test public.test.mjs storybook-coverage.test.mjs",
+    "storybook:check": "node storybook-coverage.mjs && tsc -p .storybook/tsconfig.json"
   },
   "publishConfig": {
     "access": "public",
@@ -54,5 +56,10 @@
     "type": "git",
     "url": "git+https://github.com/sushidev-team/renzu-ui.git"
   },
-  "homepage": "https://renzu.app/docs/components"
+  "homepage": "https://renzu.app/docs/components",
+  "overrides": {
+    "glob": {
+      "minimatch": "^11.0.5"
+    }
+  }
 }
