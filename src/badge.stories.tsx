@@ -1,0 +1,3 @@
+import type {Meta,StoryObj} from '@storybook/react-vite';import {Badge} from './badge.js';
+const meta={title:'Components/Badge',component:Badge,args:{children:'Ready',tone:'neutral',dot:true}} satisfies Meta<typeof Badge>;export default meta;type Story=StoryObj<typeof meta>;
+export const Neutral:Story={};export const Success:Story={args:{tone:'success'}};export const Warning:Story={args:{tone:'warning',children:'Pending'}};export const Danger:Story={args:{tone:'danger',children:'Unavailable'}};export const Accent:Story={args:{tone:'accent',children:'Extension'}};export const WithoutDot:Story={args:{dot:false}};

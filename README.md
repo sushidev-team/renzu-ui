@@ -35,3 +35,7 @@ The public Storybook uses synthetic data only. The current installed extension f
 ## License
 
 MIT. See [LICENSE](LICENSE). This license covers this package; it does not license the Renzu desktop application or hosted services.
+
+## Component catalog maintenance
+
+All exported components have dedicated states in Storybook. Run `npm run storybook:check` to verify coverage and props before adding or changing UI. See [the component catalog guide](https://github.com/sushidev-team/renzu-ui/blob/main/STORYBOOK.md) for authoring and verification.
