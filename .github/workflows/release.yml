@@ -3,12 +3,24 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      publish_tag:
+        description: 'Retry publication of an existing stable release tag (vX.Y.Z); leave empty to run Release Please'
+        type: string
+        required: false
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
+concurrency:
+  group: package-release
+  cancel-in-progress: false
 jobs:
   release:
+    if: github.ref == 'refs/heads/main' && !inputs.publish_tag
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
     outputs:
       created: ${{ steps.release.outputs.release_created }}
       tag: ${{ steps.release.outputs.tag_name }}
@@ -20,24 +32,36 @@ jobs:
           manifest-file: .release-please-manifest.json
   npm:
     needs: release
-    if: needs.release.outputs.created == 'true'
+    if: always() && github.ref == 'refs/heads/main' && (needs.release.outputs.created == 'true' || (github.event_name == 'workflow_dispatch' && inputs.publish_tag != ''))
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     permissions:
       contents: read
       id-token: write
+    env:
+      RELEASE_TAG: ${{ inputs.publish_tag || needs.release.outputs.tag }}
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ needs.release.outputs.tag }}
+          fetch-depth: 0
+      - name: Verify immutable release input
+        shell: bash
+        run: |
+          [[ "$RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]
+          git rev-parse --verify "refs/tags/$RELEASE_TAG^{commit}"
+          git merge-base --is-ancestor "refs/tags/$RELEASE_TAG" origin/main
+          git checkout --detach "refs/tags/$RELEASE_TAG"
+          node --input-type=module -e 'import p from "./package.json" with {type:"json"}; if(process.env.RELEASE_TAG!==("v"+p.version)||p.license!=="MIT"||!p.name.startsWith("@renzu/"))throw new Error("Release tag, package identity or approved license mismatch")'
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           registry-url: https://registry.npmjs.org
+          cache: npm
       - run: npm install -g npm@11.17.0
       - run: npm ci
       - run: npm run build
       - run: npm test
-      - name: Require confirmed package license
-        run: node -e "if(require('./package.json').license==='UNLICENSED')throw new Error('Confirm the public package license before first npm publication')"
+      - run: npm pack --dry-run --ignore-scripts
       - name: Publish using npm trusted publishing
         run: npm publish --provenance --access public

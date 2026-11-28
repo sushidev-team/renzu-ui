@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "type": "module",
   "description": "Public Renzu React components for extension authors",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
